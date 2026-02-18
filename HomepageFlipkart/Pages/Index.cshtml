@@ -1,0 +1,812 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flipkart Mobiles - Latest Smartphones & Best Deals</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f7f7f7;
+            color: #212121;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2874f0, #1a5dc7);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+            .logo i {
+                margin-right: 10px;
+                font-size: 32px;
+            }
+
+            .logo span {
+                color: #ffd700;
+            }
+
+        .search-container {
+            flex: 1;
+            max-width: 600px;
+            margin: 0 20px;
+            position: relative;
+        }
+
+            .search-container input {
+                width: 100%;
+                padding: 14px 50px 14px 20px;
+                border: none;
+                border-radius: 8px;
+                font-size: 16px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                transition: all 0.3s;
+            }
+
+                .search-container input:focus {
+                    outline: none;
+                    box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+                }
+
+            .search-container i {
+                position: absolute;
+                right: 20px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: #2874f0;
+                font-size: 18px;
+                cursor: pointer;
+            }
+
+        .user-actions {
+            display: flex;
+            gap: 25px;
+            color: white;
+        }
+
+        .action-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+            .action-item:hover {
+                transform: translateY(-2px);
+            }
+
+            .action-item i {
+                font-size: 22px;
+                margin-bottom: 4px;
+            }
+
+            .action-item span {
+                font-size: 14px;
+                font-weight: 500;
+            }
+
+        .nav {
+            background-color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 80px;
+        }
+
+            .nav-item:hover {
+                color: #2874f0;
+            }
+
+            .nav-item i {
+                font-size: 24px;
+                margin-bottom: 8px;
+            }
+
+            .nav-item span {
+                font-size: 14px;
+                font-weight: 500;
+            }
+
+        .hero {
+            background: linear-gradient(135deg, #2874f0, #ff9f1c);
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero i {
+            font-size: 100px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #2874f0;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 18px;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
+
+            .cta-button:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+            }
+
+        .content {
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 28px;
+            margin-bottom: 25px;
+            color: #212121;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+            .section-title:after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 80px;
+                height: 4px;
+                background: linear-gradient(to right, #2874f0, #ff9f1c);
+                border-radius: 2px;
+            }
+
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .category {
+            background: white;
+            padding: 25px 15px;
+            text-align: center;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid #f0f0f0;
+        }
+
+            .category:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            }
+
+            .category i {
+                font-size: 48px;
+                margin-bottom: 15px;
+                color: #2874f0;
+            }
+
+            .category h3 {
+                font-size: 18px;
+                color: #212121;
+                font-weight: 600;
+            }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            position: relative;
+        }
+
+            .product-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #ff6161;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .product-image {
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            padding: 20px;
+        }
+
+            .product-image i {
+                font-size: 80px;
+                color: #2874f0;
+            }
+
+        .product-details {
+            padding: 20px;
+        }
+
+        .product-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #212121;
+        }
+
+        .product-features {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .feature-tag {
+            background: #f0f5ff;
+            color: #2874f0;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+
+        .price-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .current-price {
+            font-size: 22px;
+            font-weight: 700;
+            color: #2874f0;
+        }
+
+        .original-price {
+            font-size: 16px;
+            color: #999;
+            text-decoration: line-through;
+            margin-left: 10px;
+        }
+
+        .discount {
+            font-size: 14px;
+            color: #388e3c;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .stars {
+            color: #ffc107;
+            margin-right: 8px;
+        }
+
+        .rating-value {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #2874f0;
+            color: white;
+        }
+
+            .btn-primary:hover {
+                background: #1a5dc7;
+            }
+
+        .btn-secondary {
+            background: #f0f5ff;
+            color: #2874f0;
+            border: 1px solid #2874f0;
+        }
+
+            .btn-secondary:hover {
+                background: #e1ebff;
+            }
+
+        .footer {
+            background: linear-gradient(135deg, #2c3e50, #1a252f);
+            color: white;
+            padding: 40px 20px;
+            margin-top: 40px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-section h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+            .footer-section h3:after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 50px;
+                height: 3px;
+                background: #ff9f1c;
+                border-radius: 2px;
+            }
+
+        .footer-links {
+            list-style: none;
+        }
+
+            .footer-links li {
+                margin-bottom: 12px;
+            }
+
+            .footer-links a {
+                color: #ddd;
+                text-decoration: none;
+                transition: color 0.3s;
+            }
+
+                .footer-links a:hover {
+                    color: #ff9f1c;
+                }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid #444;
+        }
+
+            .footer-bottom p {
+                font-size: 14px;
+                color: #bbb;
+            }
+
+            .footer-bottom i {
+                color: #ff6b6b;
+                margin: 0 5px;
+            }
+
+        /* Fixed Media Query - Proper CSS Syntax */
+        @@media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .search-container {
+                width: 100%;
+                margin: 10px 0;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero i {
+                font-size: 80px;
+            }
+
+            .categories {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .nav {
+                justify-content: flex-start;
+                gap: 20px;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @@media (max-width: 480px) {
+            .hero {
+                height: 300px;
+            }
+
+                .hero h1 {
+                    font-size: 28px;
+                }
+
+                .hero i {
+                    font-size: 60px;
+                }
+
+            .categories {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="#" class="logo">
+            <i class="fas fa-shopping-bag"></i>
+            Flipkart<span>Mobiles</span>
+        </a>
+        <div class="search-container">
+            <input type="text" placeholder="Search for mobiles, brands and more...">
+            <i class="fas fa-search"></i>
+        </div>
+        <div class="user-actions">
+            <div class="action-item">
+                <i class="fas fa-heart"></i>
+                <span>Wishlist</span>
+            </div>
+            <div class="action-item">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Cart</span>
+            </div>
+            <div class="action-item">
+                <i class="fas fa-user"></i>
+                <span>Account</span>
+            </div>
+        </div>
+    </header>
+
+    <nav class="nav">
+        <div class="nav-item">
+            <i class="fas fa-mobile-alt"></i>
+            <span>Mobiles</span>
+        </div>
+        <div class="nav-item">
+            <i class="fas fa-laptop"></i>
+            <span>Laptops</span>
+        </div>
+        <div class="nav-item">
+            <i class="fas fa-tv"></i>
+            <span>TVs</span>
+        </div>
+        <div class="nav-item">
+            <i class="fas fa-headphones"></i>
+            <span>Audio</span>
+        </div>
+        <div class="nav-item">
+            <i class="fas fa-gamepad"></i>
+            <span>Gaming</span>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <i class="fas fa-mobile-alt"></i>
+            <h1>Discover Amazing Mobile Deals</h1>
+            <p>Latest smartphones from top brands with exclusive offers</p>
+            <a href="#" class="cta-button">Shop Now <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </section>
+
+    <div class="content">
+        <h2 class="section-title">Top Brands</h2>
+        <section class="categories">
+            <div class="category">
+                <i class="fab fa-apple"></i>
+                <h3>iPhone</h3>
+            </div>
+            <div class="category">
+                <i class="fab fa-android"></i>
+                <h3>Samsung</h3>
+            </div>
+            <div class="category">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>OnePlus</h3>
+            </div>
+            <div class="category">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>Realme</h3>
+            </div>
+            <div class="category">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>Xiaomi</h3>
+            </div>
+        </section>
+
+        <h2 class="section-title">Featured Products</h2>
+        <section class="products-grid">
+            <div class="product-card">
+                <div class="product-badge">Limited Deal</div>
+                <div class="product-image">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <div class="product-details">
+                    <h3 class="product-title">iPhone 15 Pro</h3>
+                    <div class="product-features">
+                        <span class="feature-tag">A17 Pro</span>
+                        <span class="feature-tag">128GB</span>
+                        <span class="feature-tag">48MP Camera</span>
+                    </div>
+                    <div class="price-container">
+                        <span class="current-price">₹1,19,900</span>
+                        <span class="original-price">₹1,34,900</span>
+                        <span class="discount">11% off</span>
+                    </div>
+                    <div class="rating">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="rating-value">4.5 (1,234 reviews)</span>
+                    </div>
+                    <div class="action-buttons">
+                        <a href="#" class="btn btn-primary"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+                        <a href="#" class="btn btn-secondary"><i class="fas fa-heart"></i> Wishlist</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-badge">Best Seller</div>
+                <div class="product-image">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <div class="product-details">
+                    <h3 class="product-title">Samsung Galaxy S24 Ultra</h3>
+                    <div class="product-features">
+                        <span class="feature-tag">Snapdragon 8 Gen 3</span>
+                        <span class="feature-tag">256GB</span>
+                        <span class="feature-tag">200MP Camera</span>
+                    </div>
+                    <div class="price-container">
+                        <span class="current-price">₹1,29,999</span>
+                        <span class="original-price">₹1,49,999</span>
+                        <span class="discount">13% off</span>
+                    </div>
+                    <div class="rating">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="rating-value">4.8 (2,567 reviews)</span>
+                    </div>
+                    <div class="action-buttons">
+                        <a href="#" class="btn btn-primary"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+                        <a href="#" class="btn btn-secondary"><i class="fas fa-heart"></i> Wishlist</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-badge">New Launch</div>
+                <div class="product-image">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <div class="product-details">
+                    <h3 class="product-title">OnePlus 12</h3>
+                    <div class="product-features">
+                        <span class="feature-tag">Snapdragon 8 Gen 3</span>
+                        <span class="feature-tag">256GB</span>
+                        <span class="feature-tag">50MP Triple Camera</span>
+                    </div>
+                    <div class="price-container">
+                        <span class="current-price">₹69,999</span>
+                        <span class="original-price">₹79,999</span>
+                        <span class="discount">12% off</span>
+                    </div>
+                    <div class="rating">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <span class="rating-value">4.2 (987 reviews)</span>
+                    </div>
+                    <div class="action-buttons">
+                        <a href="#" class="btn btn-primary"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+                        <a href="#" class="btn btn-secondary"><i class="fas fa-heart"></i> Wishlist</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-badge">Budget Pick</div>
+                <div class="product-image">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <div class="product-details">
+                    <h3 class="product-title">Realme GT 5</h3>
+                    <div class="product-features">
+                        <span class="feature-tag">Snapdragon 8+ Gen 1</span>
+                        <span class="feature-tag">128GB</span>
+                        <span class="feature-tag">50MP Sony IMX890</span>
+                    </div>
+                    <div class="price-container">
+                        <span class="current-price">₹29,999</span>
+                        <span class="original-price">₹34,999</span>
+                        <span class="discount">14% off</span>
+                    </div>
+                    <div class="rating">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="rating-value">4.4 (1,543 reviews)</span>
+                    </div>
+                    <div class="action-buttons">
+                        <a href="#" class="btn btn-primary"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+                        <a href="#" class="btn btn-secondary"><i class="fas fa-heart"></i> Wishlist</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Shop</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Mobiles</a></li>
+                    <li><a href="#">Laptops</a></li>
+                    <li><a href="#">Tablets</a></li>
+                    <li><a href="#">Accessories</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Customer Service</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Shipping Policy</a></li>
+                    <li><a href="#">Returns & Refunds</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>About Flipkart</h3>
+                <ul class="footer-links">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Flipkart Mobiles. All rights reserved. <i class="fas fa-heart"></i> Made with love for mobile shoppers</p>
+        </div>
+    </footer>
+</body>
+</html>
